@@ -18,5 +18,6 @@ namespace Flight_booking.DTO
         public string Contactname { get; set; }
         public int flightnumber { get; set; }
         public string instrumentused { get; set; }
+        //comment
     }
 }
