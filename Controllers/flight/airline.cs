@@ -41,5 +41,45 @@ namespace Flight_booking.Controllers.flight
                 return NotFound("No record found with id: " + airline.flightnumber);
             return Ok(data);
         }
+
+        [HttpPost("InsertAirlines")]
+        public IActionResult InsertAirline(AirlineMasterModel airlineMaster)
+        {
+            var data = airlinerepository.InsertAirline(airlineMaster);
+
+            if (data == null)
+                return BadRequest("Inavlid Deatils provided ! Eg:AirlinesId value should not be other that Zero ");
+            return CreatedAtAction("GetAirlineDetailsById",new { id= airlineMaster.AirlinesId },airlineMaster);
+        }
+        [HttpGet("GetAirlineDetailsById")]
+        public IActionResult GetAirlineDetailsById(int id)
+        {
+            var data = airlinerepository.GetAirlinesDetails(id);
+
+            if (data == null)
+                return NotFound("No record found with id: " + id);
+            return Ok(data);
+        }
+
+        [HttpPost("AddFlightDetails")]
+        public IActionResult AddFlightDetails(AddFlightDetailsDTO addFlightDetailsDTO)
+        {
+            var data = airlinerepository.AddFlightDetails(addFlightDetailsDTO);
+
+            if (data == null)
+                return BadRequest("Inavlid Deatils provided ! Eg:FlightId value should not be other that Zero ");
+            // return CreatedAtAction("FlightDetails", "admin", new { flightId = addFlightDetailsDTO.FlightId }, addFlightDetailsDTO);
+            return Ok(data);
+        }
+        [HttpPost("AddTripSchedule")]
+        public IActionResult AddTripSchedule(AddTripScheduleDTO addTripScheduleDTO)
+        {
+            var data = airlinerepository.AddTripSchedule(addTripScheduleDTO);
+
+            if (data == null)
+                return BadRequest("Inavlid Deatils provided ! ");
+            // return CreatedAtAction("FlightDetails", "admin", new { flightId = addFlightDetailsDTO.FlightId }, addFlightDetailsDTO);
+            return Ok(data);
+        }
     }
 }

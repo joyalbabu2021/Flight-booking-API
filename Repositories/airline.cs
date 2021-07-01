@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Flight_booking.Interfaces;
 using Flight_booking.Models;
 using Flight_booking.Context;
+using Flight_booking.DTO;
 
 namespace Flight_booking.Repositories
 {
@@ -46,6 +47,70 @@ namespace Flight_booking.Repositories
             airmodel = context.airlinemodel.Where(w => w.Airlinename == airline.Airlinename && w.flightnumber == airline.flightnumber && w.instrumentused == airline.instrumentused).ToList();
 
             return airmodel;
+        }
+
+        public Tuple<bool, string> InsertAirline(AirlineMasterModel airlineMasterModel)
+        {
+            if (airlineMasterModel != null) { 
+            context.Airlines.Add(airlineMasterModel);
+            context.SaveChanges();
+            }
+            string message = $"Airline {airlineMasterModel.AirlineName} created sucessfully";
+            return Tuple.Create(true, message);
+           
+        }
+
+       
+
+        public AirlineMasterModel GetAirlinesDetails(int airlineId)
+        {
+           return context.Airlines.FirstOrDefault(a => a.AirlinesId == airlineId);
+        }
+
+        public Tuple<bool, string> AddFlightDetails(AddFlightDetailsDTO addFlightDetailsDTO)
+        {
+            var airline = context.Airlines.First(a => a.AirlinesId == addFlightDetailsDTO.AirlinesId);
+            FlightModel flightModel = new FlightModel()
+            {
+                FlightId = 0,//identity and primary key colmun
+                FlightNumber = addFlightDetailsDTO.FlightNumber,
+                InstrumentUsed = addFlightDetailsDTO.InstrumentUsed,
+                RowsCount = addFlightDetailsDTO.RowsCount,
+                BusinessClassSeatsCount = addFlightDetailsDTO.BusinessClassSeatsCount,
+                NonBusinessClassSeatsCount = addFlightDetailsDTO.NonBusinessClassSeatsCount,
+                AirlinesId = addFlightDetailsDTO.AirlinesId,
+                AirlineMasterModel = airline
+
+
+            };
+            context.Flights.Add(flightModel);
+            context.SaveChanges();
+            string message = $"Airline {addFlightDetailsDTO.FlightNumber} created sucessfully";
+            return Tuple.Create(true, message);
+
+        }
+
+        public Tuple<bool, string> AddTripSchedule(AddTripScheduleDTO addTripScheduleDTO)
+        {
+            var flight = context.Flights.Where(f => f.FlightId == addTripScheduleDTO.FlightId).FirstOrDefault();
+
+            FlightTripSchedule flightTripSchedule = new FlightTripSchedule()
+            {
+                TripId = addTripScheduleDTO.TripId,
+                FromPlace = addTripScheduleDTO.FromPlace,
+                ToPlace = addTripScheduleDTO.ToPlace,
+                AvailableDate = addTripScheduleDTO.AvailableDate,
+                StartDateTime = addTripScheduleDTO.StartDateTime,
+                EndDateTime = addTripScheduleDTO.EndDateTime,
+                SeatsAvailable = addTripScheduleDTO.SeatsAvailable,
+                FlightId = addTripScheduleDTO.FlightId,
+                Flight = flight,
+            };
+            context.FlightTrips.Add(flightTripSchedule);
+            context.SaveChanges();
+            string message = $"Trip Details for  {flight.FlightNumber} created sucessfully";
+            return Tuple.Create(true, message);
+
         }
     }
 }

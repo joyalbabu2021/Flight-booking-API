@@ -32,5 +32,15 @@ namespace Flight_booking.Controllers.flight
 
             return Ok(data);
         }
+        [HttpPost("SearchFlightTrips")]
+        public IActionResult SearchFlightTrips(SearchFlightDTO searchFlightDTO)
+        {
+            var data = searchrepository.SearchFlights(searchFlightDTO);
+
+            if (data == null)
+                return BadRequest("Inavlid Deatils provided ! ");
+            // return CreatedAtAction("FlightDetails", "admin", new { flightId = addFlightDetailsDTO.FlightId }, addFlightDetailsDTO);
+            return Ok(data);
+        }
     }
 }

@@ -4,14 +4,16 @@ using Flight_booking.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Flight_booking.Migrations
 {
     [DbContext(typeof(FDbcontext))]
-    partial class FDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20210628175607_Airline_Flight_Data")]
+    partial class Airline_Flight_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,22 +197,7 @@ namespace Flight_booking.Migrations
 
                     b.HasKey("TripId");
 
-                    b.HasIndex("FlightId");
-
                     b.ToTable("FlightTrips");
-
-                    b.HasData(
-                        new
-                        {
-                            TripId = 2,
-                            AvailableDate = new DateTime(2021, 7, 1, 13, 53, 2, 298, DateTimeKind.Local).AddTicks(5341),
-                            EndDateTime = new DateTime(2021, 7, 1, 15, 53, 2, 298, DateTimeKind.Local).AddTicks(6160),
-                            FlightId = 2,
-                            FromPlace = "Tirupathi",
-                            SeatsAvailable = 100,
-                            StartDateTime = new DateTime(2021, 7, 1, 13, 53, 2, 298, DateTimeKind.Local).AddTicks(5768),
-                            ToPlace = "Hyderabad"
-                        });
                 });
 
             modelBuilder.Entity("Flight_booking.Models.Flightbookingsmodel", b =>
@@ -319,10 +306,10 @@ namespace Flight_booking.Migrations
                             UserEmail = "Jack.Reacher@gmail.com",
                             Userid = "1",
                             Username = "Jack",
-                            bookeddate = new DateTime(2021, 7, 1, 13, 53, 2, 287, DateTimeKind.Local).AddTicks(779),
+                            bookeddate = new DateTime(2021, 6, 28, 23, 26, 7, 295, DateTimeKind.Local).AddTicks(8142),
                             numberofseats = 2,
-                            onwarddate = new DateTime(2021, 7, 6, 13, 53, 2, 285, DateTimeKind.Local).AddTicks(9102),
-                            returndate = new DateTime(2021, 7, 8, 13, 53, 2, 286, DateTimeKind.Local).AddTicks(5734),
+                            onwarddate = new DateTime(2021, 7, 3, 23, 26, 7, 294, DateTimeKind.Local).AddTicks(5521),
+                            returndate = new DateTime(2021, 7, 5, 23, 26, 7, 295, DateTimeKind.Local).AddTicks(3071),
                             status = 1
                         },
                         new
@@ -347,10 +334,10 @@ namespace Flight_booking.Migrations
                             UserEmail = "Jack.Reacher2@gmail.com",
                             Userid = "2",
                             Username = "Jack2",
-                            bookeddate = new DateTime(2021, 7, 1, 13, 53, 2, 287, DateTimeKind.Local).AddTicks(1473),
+                            bookeddate = new DateTime(2021, 6, 28, 23, 26, 7, 295, DateTimeKind.Local).AddTicks(8841),
                             numberofseats = 1,
-                            onwarddate = new DateTime(2021, 7, 6, 13, 53, 2, 287, DateTimeKind.Local).AddTicks(1464),
-                            returndate = new DateTime(2021, 7, 8, 13, 53, 2, 287, DateTimeKind.Local).AddTicks(1469),
+                            onwarddate = new DateTime(2021, 7, 3, 23, 26, 7, 295, DateTimeKind.Local).AddTicks(8832),
+                            returndate = new DateTime(2021, 7, 5, 23, 26, 7, 295, DateTimeKind.Local).AddTicks(8837),
                             status = 1
                         });
                 });
@@ -484,17 +471,6 @@ namespace Flight_booking.Migrations
                     b.Navigation("AirlineMasterModel");
                 });
 
-            modelBuilder.Entity("Flight_booking.Models.FlightTripSchedule", b =>
-                {
-                    b.HasOne("Flight_booking.Models.FlightModel", "Flight")
-                        .WithMany("FlightTripSchedules")
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flight");
-                });
-
             modelBuilder.Entity("Flight_booking.Models.passengerdetails", b =>
                 {
                     b.HasOne("Flight_booking.Models.Flightbookingsmodel", "flightbookingsmodel")
@@ -509,11 +485,6 @@ namespace Flight_booking.Migrations
             modelBuilder.Entity("Flight_booking.Models.AirlineMasterModel", b =>
                 {
                     b.Navigation("Flights");
-                });
-
-            modelBuilder.Entity("Flight_booking.Models.FlightModel", b =>
-                {
-                    b.Navigation("FlightTripSchedules");
                 });
 
             modelBuilder.Entity("Flight_booking.Models.Flightbookingsmodel", b =>

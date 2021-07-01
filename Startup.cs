@@ -35,6 +35,7 @@ namespace Flight_booking
             services.AddDbContext<FDbcontext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddScoped<Ibooking, booking>();
             services.AddScoped<Iairline, airline>();
+            services.AddScoped<Isearch, search>();
             services.AddScoped<Iadmin, admin>();
             services.AddCors(c =>
             {

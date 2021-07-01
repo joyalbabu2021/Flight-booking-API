@@ -16,9 +16,9 @@ namespace Flight_booking.Repositories
         {
             this.context = _context;
         }
-        public  Usersmodel GetUserDetails(int UserID)
+        public Usersmodel GetUserDetails(int UserID)
         {
-            return   context.usermodel.Where(u => u.UserID == UserID).FirstOrDefault();
+            return context.usermodel.Where(u => u.UserID == UserID).FirstOrDefault();
         }
 
         public Usersmodel GetUserDetails(string userEmail)
@@ -31,6 +31,29 @@ namespace Flight_booking.Repositories
             return await context.usermodel.ToListAsync();
 
         }
-        
-    }
+        public async Task<List<FlightModel>> GetFlightsList()
+        {
+            return await context.Flights.Include(f => f.AirlineMasterModel).Where(f => f.AirlineMasterModel.Blocked == false).ToListAsync();
+        }
+
+        /* public dynamic GetFlightDetailsById(int FlightId)
+         {
+             return context.Flights.Where(f=>f.FlightId==FlightId).Join(context.Airlines, F => F.AirlinesId, A => A.AirlinesId,
+                  (F, A) => new
+                  {
+                      FlightId = F.FlightId,
+                      FlightNumber = F.FlightNumber,
+                      InstrumentUsed = F.InstrumentUsed,
+                      RowsCount = F.RowsCount,
+                      aa=F.NonBusinessClassSeatsCount,
+                      dd=F.BusinessClassSeatsCount,
+                      AirlineName = A.AirlineName,
+                      AirlinesId = A.AirlinesId,
+                      AirlineLogo = A.AirlineLogo
+                  }
+                 );
+         }*/
+
+        public FlightModel GetFlightDetailsById(int FlightId) =>  context.Flights.Include(f => f.AirlineMasterModel).FirstOrDefault(f => f.FlightId == FlightId);
+    }  
 }

@@ -50,5 +50,22 @@ namespace Flight_booking.Controllers.flight
                 return NotFound("No record found ");
             return Ok(data);
         }
+
+        [HttpGet("Flights")]
+        public async Task<IActionResult> GetFlightsList()
+        {
+            var data = await adminRepository.GetFlightsList();
+            if (data == null)
+                return NotFound("No record found ");
+            return Ok(data);
+        }
+        [HttpGet("FlightDetails/{flightId}")]
+        public  IActionResult GetFlightDetailsByID(int flightId)
+        {
+            var data = adminRepository.GetFlightDetailsById(flightId);
+            if (data == null)
+                return NotFound("No record found ");
+            return Ok(data);
+        }
     }
 }

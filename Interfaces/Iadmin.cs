@@ -11,5 +11,7 @@ namespace Flight_booking.Interfaces
         Usersmodel GetUserDetails(int UserID);
         Task<List<Usersmodel>> GetUsers();
         Usersmodel GetUserDetails(string userEmail);
+        Task<List<FlightModel>> GetFlightsList();
+        FlightModel GetFlightDetailsById(int FlightId);
     }
 }
