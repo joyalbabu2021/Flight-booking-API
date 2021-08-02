@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Flight_booking.DTO;
 using Flight_booking.Models;
 
 namespace Flight_booking.Interfaces
@@ -14,8 +15,10 @@ namespace Flight_booking.Interfaces
         Task<Flightbookingsmodel> GetFlightBookingDetailsbyId(int flightBookingId);
 
         Task<List<Flightbookingsmodel>> GetflightBookingHistory();
+        Tuple<bool, string> ReserveTicketForUser(FlightbookingDto flightbookingDto);
 
-      
+
+
 
     }
 }

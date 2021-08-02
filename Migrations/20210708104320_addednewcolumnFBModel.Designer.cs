@@ -4,14 +4,16 @@ using Flight_booking.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Flight_booking.Migrations
 {
     [DbContext(typeof(FDbcontext))]
-    partial class FDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20210708104320_addednewcolumnFBModel")]
+    partial class addednewcolumnFBModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

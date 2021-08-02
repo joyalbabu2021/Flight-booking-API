@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flight_booking.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Flight_booking.DTO
 {
     public class FlightbookingDto
     {
+        
         public string Username { get; set; }
         public string UserEmail { get; set; }
         public string Userid { get; set; }
@@ -19,7 +21,7 @@ namespace Flight_booking.DTO
         public DateTime returndate { get; set; }
         public decimal Amount { get; set; }
         public string Airlinename { get; set; }
-        public byte[] Airlinelogo { get; set; }
+        public string Airlinelogo { get; set; }
         public decimal ReturnAmount { get; set; }
         public string ReturnAirlinename { get; set; }
         public string ReturnAirlinelogo { get; set; }
@@ -30,6 +32,12 @@ namespace Flight_booking.DTO
         public string Mealtype { get; set; }
         public string ReturnMealtype { get; set; }
         public int Pnrnumber { get; set; }
-        [NotMapped] public List<passengerdetailsDTO> passengerdetailsdto { get; set; }
+        public int TripId { get; set; }
+        public int ReturnTripId { get; set; }
+        public int passengersCount { get; set; }
+        //public DateTime bookeddate { get; set; }
+        //public int numberofseats { get; set; }
+        [NotMapped] public ICollection<passengerdetailsDTO> passengerdetails { get; set; }
+
     }
 }

@@ -70,6 +70,17 @@ namespace Flight_booking.Controllers.flight
             return Ok(id);
         }
 
+        [HttpPost]
+        [Route("ReserveTicketForUser")]
+        public IActionResult ReserveTicketForUser(FlightbookingDto flightbookingDto)
+        {
+            //var i = _mapper.Map<Flightbookingsmodel>(flightbookingDto);
+            var data = bookingrepository.ReserveTicketForUser(flightbookingDto);
+            if (data == null)
+                return BadRequest("Inavlid Deatils provided ! Eg:AirlinesId value should not be other that Zero ");
+            return Ok(data);
+        }
+
         
 
     }

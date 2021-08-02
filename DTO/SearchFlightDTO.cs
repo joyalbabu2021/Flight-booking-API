@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Flight_booking.DTO
 {
+   
     public class SearchFlightDTO
     {
         public string FromPlace { get; set; }

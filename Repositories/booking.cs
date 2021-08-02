@@ -7,16 +7,20 @@ using Flight_booking.Models;
 using Flight_booking.Context;
 using static Flight_booking.commonenum;
 using Microsoft.EntityFrameworkCore;
+using Flight_booking.DTO;
+using AutoMapper;
 
 namespace Flight_booking.Repositories
 {
     public class booking : Ibooking
     {
         private FDbcontext context;
+        private readonly IMapper _mapper;
 
-        public booking(FDbcontext _context)
+        public booking(FDbcontext _context,IMapper mapper)
         {
             this.context = _context;
+            this._mapper = mapper;
         }
         public async Task<Tuple<bool, string>> Insertbookingdata(Flightbookingsmodel fltmodel)
         {
@@ -78,7 +82,7 @@ namespace Flight_booking.Repositories
         public async Task<Tuple<bool, string>> cancelflightbypnr(int pnr)
         {
             var message = "Cancelld successfully";
-            var bookcancel = context.bookmodel.Where(w => w.Pnrnumber == pnr).FirstOrDefault();
+            var bookcancel = context.bookmodel.Where(w => w.Pnrnumber == pnr.ToString()).FirstOrDefault();
             if (bookcancel != null)
             {
                 var presntdate = DateTime.Now;
@@ -116,6 +120,53 @@ namespace Flight_booking.Repositories
             return bookmodel;
         }
 
-       
+        public Tuple<bool, string> ReserveTicketForUser(FlightbookingDto flightbookingDto)
+        {
+            if (flightbookingDto != null)
+            {
+                try
+                {
+                    //deduct seat count from Trip
+                    var TripData = context.FlightTrips.Include(f=>f.Flight).SingleOrDefault(x => x.TripId == flightbookingDto.TripId);
+                    TripData.SeatsAvailable = TripData.SeatsAvailable - flightbookingDto.passengersCount;
+                    if(flightbookingDto.Triptype!="oneway" && context.FlightTrips.Any(x=>x.TripId==flightbookingDto.ReturnTripId))
+                    {
+                        var returnTripData = context.FlightTrips.Include(f => f.Flight).SingleOrDefault(x => x.TripId == flightbookingDto.ReturnTripId);
+                        returnTripData.SeatsAvailable = returnTripData.SeatsAvailable - flightbookingDto.passengersCount;
+                    }
+                    var fbm = _mapper.Map<Flightbookingsmodel>(flightbookingDto);
+                    fbm.bookeddate = DateTime.Now;
+                    fbm.numberofseats = flightbookingDto.passengersCount;
+                    context.bookmodel.Add(fbm);
+                    context.SaveChanges();
+                    var bookid = fbm.FlightBookingId;
+                    var bookedTicket = context.bookmodel.SingleOrDefault(x => x.FlightBookingId == bookid);
+                   string PNRNumber= bookedTicket.Airlinename.Substring(0, 3).ToUpper() + bookedTicket.Fromplace.Substring(0, 3).ToUpper() + TripData.Flight.FlightNumber + bookid;
+                    bookedTicket.Pnrnumber = PNRNumber;
+                   bookedTicket.passengerdetails.ToList().ForEach(x => x.Pnrnumber = PNRNumber);
+                    context.SaveChanges();
+                    string message = $"Ticket Booked sucessfully .PNR Number is: {bookedTicket.Pnrnumber} ..Booking Id/TransactionId : {bookid}  ";
+                    return Tuple.Create(true, message);
+                }
+                catch(Exception ex)
+                {
+                    // if exception occurs revoke seat count..
+                    var TripData = context.FlightTrips.SingleOrDefault(x => x.TripId == flightbookingDto.TripId);
+                    TripData.SeatsAvailable = TripData.SeatsAvailable + flightbookingDto.passengersCount;
+                    if (flightbookingDto.Triptype != "oneway" && context.FlightTrips.Any(x => x.TripId == flightbookingDto.ReturnTripId))
+                    {
+                        var returnTripData = context.FlightTrips.Include(f => f.Flight).SingleOrDefault(x => x.TripId == flightbookingDto.ReturnTripId);
+                        returnTripData.SeatsAvailable = returnTripData.SeatsAvailable - flightbookingDto.passengersCount;
+                    }
+                    string message = $"Error While  Booking Flight Ticket ";
+                    return Tuple.Create(true, message);
+                }
+            }
+            else
+            {
+                string message = $"Flight Booking Details can't be Null";
+                return Tuple.Create(true, message);
+            }
+        }
     }
 }

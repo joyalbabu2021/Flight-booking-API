@@ -24,6 +24,7 @@ namespace Flight_booking.Models
         public int FlightId { get; set; }
         
         public virtual FlightModel Flight { get; set; }
+        public int costPerSeat { get; set; }
 
     }
 }

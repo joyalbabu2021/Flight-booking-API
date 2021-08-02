@@ -18,7 +18,7 @@ namespace Flight_booking.Repositories
         public Flightbookingsmodel GetFlightdetailsbypnr(int pnr)
         {
 
-            var bookedlist = context.bookmodel.Where(w => w.Pnrnumber == pnr).FirstOrDefault();
+            var bookedlist = context.bookmodel.Where(w => w.Pnrnumber == pnr.ToString()).FirstOrDefault();
 
             return bookedlist;
         }

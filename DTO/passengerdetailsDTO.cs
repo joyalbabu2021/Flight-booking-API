@@ -11,7 +11,7 @@ namespace Flight_booking.DTO
         public int Age { get; set; }
         public string Gender { get; set; }
         public string Usermail { get; set; }
-        public int Pnrnumber { get; set; }
+        public string Pnrnumber { get; set; }
 
         public string mealpreference { get; set; }
 

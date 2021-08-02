@@ -82,7 +82,7 @@ namespace Flight_booking.Context
                     ,
                     ReturnMealtype = "SampleMeal"
                     ,
-                    Pnrnumber = 123456
+                    Pnrnumber = "123456"
                     ,
                     bookeddate = DateTime.Now
                    ,
@@ -133,7 +133,7 @@ namespace Flight_booking.Context
                     ,
                     ReturnMealtype = "SampleMeal"
                     ,
-                    Pnrnumber = 789012
+                    Pnrnumber = "789012"
                     ,
                     bookeddate = DateTime.Now
                    ,
@@ -159,9 +159,9 @@ namespace Flight_booking.Context
 
             #region Seed-PassengerDetails
             modelBuilder.Entity<passengerdetails>().HasData(
-               new passengerdetails() { Id = 1, flightbookingid = 1, Name = "Jack", Age = 25, Gender = "M", Usermail = "Jack.Reacher@gmail.com", Pnrnumber = 12345, mealpreference = "mealpref", selectedseatnumber = "A1" },
-                new passengerdetails() { Id = 2, flightbookingid = 1, Name = "J Reacher", Age = 25, Gender = "M", Usermail = "Jack.Reacher2@gmail.com", Pnrnumber = 12345, mealpreference = "mealpref", selectedseatnumber = "A2" },
-                 new passengerdetails() { Id = 3, flightbookingid = 2, Name = "J Reacher3", Age = 25, Gender = "M", Usermail = "Jack.Reacher3@gmail.com", Pnrnumber = 789012, mealpreference = "mealpref", selectedseatnumber = "B1" }
+               new passengerdetails() { Id = 1, flightbookingid = 1, Name = "Jack", Age = 25, Gender = "M", Usermail = "Jack.Reacher@gmail.com", Pnrnumber = "12345", mealpreference = "mealpref", selectedseatnumber = "A1" },
+                new passengerdetails() { Id = 2, flightbookingid = 1, Name = "J Reacher", Age = 25, Gender = "M", Usermail = "Jack.Reacher2@gmail.com", Pnrnumber = "12345", mealpreference = "mealpref", selectedseatnumber = "A2" },
+                 new passengerdetails() { Id = 3, flightbookingid = 2, Name = "J Reacher3", Age = 25, Gender = "M", Usermail = "Jack.Reacher3@gmail.com", Pnrnumber = "789012", mealpreference = "mealpref", selectedseatnumber = "B1" }
                                                   );
 
             #endregion

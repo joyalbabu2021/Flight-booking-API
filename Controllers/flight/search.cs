@@ -32,10 +32,10 @@ namespace Flight_booking.Controllers.flight
 
             return Ok(data);
         }
-        [HttpPost("SearchFlightTrips")]
-        public IActionResult SearchFlightTrips(SearchFlightDTO searchFlightDTO)
+        [HttpGet("SearchFlightTrips")]
+        public IActionResult SearchFlightTrips([FromQuery]SearchFlightDTO searchFlightDTO)
         {
-            var data = searchrepository.SearchFlights(searchFlightDTO);
+            var data = searchrepository.SearchFlights(searchFlightDTO,_mapper);
 
             if (data == null)
                 return BadRequest("Inavlid Deatils provided ! ");

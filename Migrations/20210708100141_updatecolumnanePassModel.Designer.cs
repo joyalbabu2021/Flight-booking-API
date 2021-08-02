@@ -4,14 +4,16 @@ using Flight_booking.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Flight_booking.Migrations
 {
     [DbContext(typeof(FDbcontext))]
-    partial class FDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20210708100141_updatecolumnanePassModel")]
+    partial class updatecolumnanePassModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,12 +208,12 @@ namespace Flight_booking.Migrations
                         new
                         {
                             TripId = 2,
-                            AvailableDate = new DateTime(2021, 7, 8, 16, 13, 20, 282, DateTimeKind.Local).AddTicks(428),
-                            EndDateTime = new DateTime(2021, 7, 8, 18, 13, 20, 282, DateTimeKind.Local).AddTicks(1245),
+                            AvailableDate = new DateTime(2021, 7, 8, 15, 31, 40, 446, DateTimeKind.Local).AddTicks(4475),
+                            EndDateTime = new DateTime(2021, 7, 8, 17, 31, 40, 446, DateTimeKind.Local).AddTicks(5330),
                             FlightId = 2,
                             FromPlace = "Tirupathi",
                             SeatsAvailable = 100,
-                            StartDateTime = new DateTime(2021, 7, 8, 16, 13, 20, 282, DateTimeKind.Local).AddTicks(832),
+                            StartDateTime = new DateTime(2021, 7, 8, 15, 31, 40, 446, DateTimeKind.Local).AddTicks(4908),
                             ToPlace = "Hyderabad",
                             costPerSeat = 0
                         });
@@ -257,9 +259,6 @@ namespace Flight_booking.Migrations
                     b.Property<string>("ReturnMealtype")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReturnTripId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Selectedseatonward")
                         .HasColumnType("nvarchar(max)");
 
@@ -271,9 +270,6 @@ namespace Flight_booking.Migrations
 
                     b.Property<decimal>("Totalamount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TripId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Triptype")
                         .HasColumnType("nvarchar(max)");
@@ -321,20 +317,18 @@ namespace Flight_booking.Migrations
                             ReturnAirlinename = "SpiceJet",
                             ReturnAmount = 2504m,
                             ReturnMealtype = "SampleMeal",
-                            ReturnTripId = 0,
                             Selectedseatonward = "A1",
                             Selectedseatreturn = "A2",
                             Toplace = "Bangalore",
                             Totalamount = 5008m,
-                            TripId = 0,
                             Triptype = "sampelTriptype",
                             UserEmail = "Jack.Reacher@gmail.com",
                             Userid = "1",
                             Username = "Jack",
-                            bookeddate = new DateTime(2021, 7, 8, 16, 13, 20, 270, DateTimeKind.Local).AddTicks(6993),
+                            bookeddate = new DateTime(2021, 7, 8, 15, 31, 40, 434, DateTimeKind.Local).AddTicks(3854),
                             numberofseats = 2,
-                            onwarddate = new DateTime(2021, 7, 13, 16, 13, 20, 269, DateTimeKind.Local).AddTicks(2494),
-                            returndate = new DateTime(2021, 7, 15, 16, 13, 20, 270, DateTimeKind.Local).AddTicks(1600),
+                            onwarddate = new DateTime(2021, 7, 13, 15, 31, 40, 433, DateTimeKind.Local).AddTicks(932),
+                            returndate = new DateTime(2021, 7, 15, 15, 31, 40, 433, DateTimeKind.Local).AddTicks(8497),
                             status = 1
                         },
                         new
@@ -351,20 +345,18 @@ namespace Flight_booking.Migrations
                             ReturnAirlinename = "Indigo",
                             ReturnAmount = 2504m,
                             ReturnMealtype = "SampleMeal",
-                            ReturnTripId = 0,
                             Selectedseatonward = "B1",
                             Selectedseatreturn = "B2",
                             Toplace = "Delhi",
                             Totalamount = 5008m,
-                            TripId = 0,
                             Triptype = "TwoWayTrip",
                             UserEmail = "Jack.Reacher2@gmail.com",
                             Userid = "2",
                             Username = "Jack2",
-                            bookeddate = new DateTime(2021, 7, 8, 16, 13, 20, 270, DateTimeKind.Local).AddTicks(7846),
+                            bookeddate = new DateTime(2021, 7, 8, 15, 31, 40, 434, DateTimeKind.Local).AddTicks(4588),
                             numberofseats = 1,
-                            onwarddate = new DateTime(2021, 7, 13, 16, 13, 20, 270, DateTimeKind.Local).AddTicks(7837),
-                            returndate = new DateTime(2021, 7, 15, 16, 13, 20, 270, DateTimeKind.Local).AddTicks(7842),
+                            onwarddate = new DateTime(2021, 7, 13, 15, 31, 40, 434, DateTimeKind.Local).AddTicks(4575),
+                            returndate = new DateTime(2021, 7, 15, 15, 31, 40, 434, DateTimeKind.Local).AddTicks(4581),
                             status = 1
                         });
                 });

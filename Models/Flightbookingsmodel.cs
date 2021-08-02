@@ -37,10 +37,12 @@ namespace Flight_booking.Models
         public string Toplace { get; set; }
         public string Mealtype { get; set; }
         public string ReturnMealtype { get; set; }
-        public int Pnrnumber { get; set; }
+        public string Pnrnumber { get; set; }
         public DateTime bookeddate { get; set; }
         public int numberofseats { get; set; }
-       // [NotMapped]
-       public virtual ICollection<passengerdetails> passengerdetails{ get; set; }
+        public int TripId { get; set; }
+        public int ReturnTripId { get; set; }
+        // [NotMapped]
+        public virtual ICollection<passengerdetails> passengerdetails{ get; set; }
     }
 }
